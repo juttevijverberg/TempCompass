@@ -12,6 +12,15 @@ module purge
 module load 2023
 module load Anaconda3/2023.07-2
 
-conda env create --name env
-source activate env
+# Initialize conda in this non-interactive shell:
+eval "$(conda shell.bash hook)"
+
+# 1) Create the env (one‐time; skip in future runs if it already exists)
+conda create -n env python=3.10 -y
+
+# 2) Activate it
+conda activate env
+
+# 3) Upgrade pip and install your requirements
+pip install --upgrade pip
 pip install -r requirements.txt
